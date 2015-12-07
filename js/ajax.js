@@ -136,3 +136,26 @@ function getLocalStorage(key) {
 	return JSON.parse(aux);
 }
 
+
+
+function renderProductListHomePage(){
+	var total = "";
+	var productList = getLocalStorage("productList");
+	for(var i=0; i<6; i++){
+		total += "<div class='col-md-4'>"+
+	  			  "<div class='thumbnail'>"+
+	    		   "<img src=" +productList[i].img+">";
+	    total+= "<div class='caption'> <h4 class='pull-right'>"+ productList[i].price+"</h4>"+
+	     "<h4><a href='product.html'>"+productList[i].name+"</a></h4> <p>"+productList[i].productOwnerName+"</p>"+
+	   "</div><p class='pull-right'></p> <p>";
+ /*for(var i=0;i< productList[i].review; i++){
+	total+= "<span class='glyphicon glyphicon-star'></span>";
+			}*/
+	 total+="</p></div></div></div>";
+
+	   	}
+	
+	$("#homeProducts").html(total);
+}
+
+ 
