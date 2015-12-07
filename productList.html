@@ -14,6 +14,8 @@
 
     <!-- Custom styles for this template (imports bootstrap from LESS) -->
     <link href="css/style.css" rel="stylesheet">
+    <script src="js/ajax.js"></script>
+
 
 
   </head>
@@ -81,6 +83,23 @@
 
 
 
+<div class="container">
+    <div class="well well-sm">
+        <strong>Category Title</strong>
+        <div class="btn-group">
+            <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
+            </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
+                class="glyphicon glyphicon-th"></span>Grid</a>
+        </div>
+    </div>
+    <div id="products" class="row list-group"></div>
+</div>
+
+
+
+
+
+
 
 
 
@@ -99,6 +118,19 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.bxslider.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+      renderProductList();
+    $('#list').click(function(event){event.preventDefault();$('#products .item').addClass('list-group-item');});
+    $('#grid').click(function(event){event.preventDefault();$('#products .item').removeClass('list-group-item');$('#products .item').addClass('grid-group-item');});
+});
+      
+
+
+ 
+    </script>
+
 
 
 
