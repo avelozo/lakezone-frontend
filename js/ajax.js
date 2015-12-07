@@ -37,7 +37,7 @@ function renderProductList(){
 	for(var i=0; i<productList.length; i++){
 		total += "<div class='item  col-xs-4 col-lg-4'>";
 		total += "<div class='thumbnail'>";
-		total += "<img class='group list-group-image' src="+ productList[i].img + " alt='' />";
+		total += "<img class='group list-group-image' src="+ productList[i].img + ">";
 		total += "<div class='caption'>";
 		total += "<h4 class='group inner list-group-item-heading'>"+productList[i].name+"</h4>";
 		total += "<p class='group inner list-group-item-text'>Partner: "+productList[i].productOwnerName+" </p>";
@@ -61,7 +61,7 @@ function renderProductPage(){
 	total += "<div class='col-md-8'>";
 	total += "<div class='row'>";
 	total += "<div class='col-md-4'>";
-	total += "<img class='main-image' src="+product.img+"/>";
+	total += "<img class='main-image' src="+product.img+">";
 	total += "</div>";
 	total += "<div class='col-md-8'>";
 	total += "<h2>"+product.name+"</h2>";
