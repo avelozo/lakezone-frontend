@@ -65,7 +65,7 @@ function customerLogin() {
 	var login = new Object();
 login.name = $("#loginName").val();
 login.password = $("#loginPassword").val();
-	var loginUrl = serverUrl+ "customer/authentication";
+	var loginUrl = serverUrl+ "customer/customer/authentication";
     $.ajax({
     headers: { 
         'Accept': 'application/json',
