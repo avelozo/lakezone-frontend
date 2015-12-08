@@ -12,6 +12,7 @@
 
     <!-- Custom styles for this template (imports bootstrap from LESS) -->
     <link href="css/style.css" rel="stylesheet">
+    <script src="js/ajax.js"></script>
   </head>
 
   <body>
@@ -22,6 +23,12 @@
       <div class="row">
   <div class="col-md-4 col-sm-12">
     <h1 class="logo"><img src="img/icon-fish.png">Lake<span class="primary">Zone</span></h1>
+
+    
+  </div> <!-- col-md-4 -->
+  <div class="col-md-8 col-sm-12" id="partnerNameRender">
+   
+    
     
   </div> <!-- col-md-4 -->
   
@@ -96,6 +103,12 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.bxslider.min.js"></script>
+    <script>
+      var renderName = "<h1><span class='primary'>"+getLocalStorage("partnerName")+"</span></h1>";
+      $("#partnerNameRender").html(renderName);
+      
+    </script>
+    
 
 
 

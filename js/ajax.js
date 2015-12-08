@@ -1,8 +1,6 @@
 var serverUrl = "http://localhost:8090/";
-var loginUrl = serverUrl+ "customer/authentication";
-var login = new Object();
-login.name = "joseph";
-login.password = "4588";
+
+
 
 
 function searchProduct(){
@@ -42,6 +40,10 @@ customer.password = "4588";
 }*/
 
 function customerLogin() {
+	var login = new Object();
+login.name = "joseph";
+login.password = "4588";
+	var loginUrl = serverUrl+ "customer/authentication";
     $.ajax({
     headers: { 
         'Accept': 'application/json',
@@ -50,15 +52,45 @@ function customerLogin() {
     'type': 'POST',
     'url': loginUrl,
     'data': JSON.stringify(login),
-    // 'dataType': 'json',
     'success': function(data){
-		alert("sucesssss");},
+		alert(data);},
 	'error':   function(jqXHR, textStatus, errorThrown) {
         alert("Error, status = " + textStatus + ", " +
               "error thrown: " + errorThrown
         );}
     });
 
+}
+
+function partnerLogin() {
+	
+	var login = new Object();
+	login.name = $("#partnerName").val();
+	login.password = $("#partnerPassword").val();
+	// login.name = "DynkSA";
+	// login.password = "7896";
+	var loginUrl = serverUrl+ "productowner/authentication";
+    $.ajax({
+    headers: { 
+        'Accept': 'application/json',
+        'Content-Type': 'application/json' 
+    },
+    'type': 'POST',
+    'url': loginUrl,
+    'data': JSON.stringify(login),
+    'success': function(data){
+    	// alert(JSON.stringify(data));
+		setPartnerLocal(data);
+		window.location = "partnerHome.html";},
+	'error':   function(jqXHR, textStatus, errorThrown) {
+        alert("Error, status = " + textStatus + ", " +
+              "error thrown: " + errorThrown
+        );}
+    });
+
+}
+function setPartnerLocal(data){
+	setLocalStorage("partnerName",data.name);
 }
 
     
@@ -316,3 +348,5 @@ function renderProductListHomePage(){
 }
 
  
+
+
