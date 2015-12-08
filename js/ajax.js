@@ -75,6 +75,7 @@ login.password = $("#loginPassword").val();
     'url': loginUrl,
     'data': JSON.stringify(login),
     'success': function(data){
+    	setCustomerLocal(data);
 		alert(JSON.stringify(data));
 		window.location = "index.html";},
 	'error':   function(jqXHR, textStatus, errorThrown) {
@@ -148,6 +149,10 @@ function setPartnerLocal(data){
 		setLocalStorage(key,data.link[i].url);
 		key = "";
 	}
+}
+
+function setCustomerLocal(data){
+	setLocalStorage("customerAll",data);
 }
 function getPartnerProductList(){
 	var url = getLocalStorage("partnerUrlviewProducts");
