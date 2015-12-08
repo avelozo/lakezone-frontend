@@ -14,6 +14,7 @@
 
     <!-- Custom styles for this template (imports bootstrap from LESS) -->
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/partnerLogin.css" rel="stylesheet">
     <script src="js/ajax.js"></script>
 
 
@@ -25,7 +26,7 @@
 
     <header>
       <div class="row">
-  <div class="col-md-4 col-sm-12">
+  <div class="col-md-8 col-sm-12">
     <h1 class="logo"><img src="img/icon-fish.png">Lake<span class="primary">Zone</span></h1>
     
   </div> <!-- col-md-4 -->
@@ -33,95 +34,104 @@
       </div> <!-- row -->
     </header>
 
-    <!-- Static navbar -->
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="index.html">Home</a></li>
-            
-            
-            <li><a href="">My Account</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-      <form class="navbar-form">
-        <div class="form-group">
-    <input type="text" class="form-control" placeholder="Search...">
-        </div>
-        <button type="submit" class="btn btn-default">Search</button>
-      </form>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div><!--/.container-fluid -->
-    </nav>
 
 
-
-
-
-
-
-
-
-
-
-
+<div class="container">
+      <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-login">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-xs-6">
+                <a href="#" class="active" id="login-form-link">Login</a>
+              </div>
+              <div class="col-xs-6">
+                <a href="#" id="register-form-link">Register</a>
+              </div>
+            </div>
+            <hr>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <form id="login-form" action="http://phpoll.com/login/process" method="post" role="form" style="display: block;">
+                  <div class="form-group">
+                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+                  </div>
+                  <div class="form-group">
+                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                  </div>
+                  <div class="form-group text-center">
+                    <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
+                    <label for="remember"> Remember Me</label>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-sm-6 col-sm-offset-3">
+                        <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="text-center">
+                          <a href="http://phpoll.com/recover" tabindex="5" class="forgot-password">Forgot Password?</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <form id="register-form" action="http://phpoll.com/register/process" method="post" role="form" style="display: none;">
+                  <div class="form-group">
+                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+                  </div>
+                  <div class="form-group">
+                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                  </div>
+                  
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-sm-6 col-sm-offset-3">
+                        <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
     
 
-
-
-    <div class="container">
-
-      <form class="form-signin">
-        <h2 class="form-signin-heading">Please Login in</h2>
-        <label  class="sr-only">Partner name</label>
-        <input id="partnerName" class="form-control" placeholder="PartnerName" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="partnerPassword" class="form-control" placeholder="Password" required>
-        <ba class="btn btn-lg btn-primary btn-block" onClick="partnerLogin()">Log in</a>
-      </form>
-
-    </div> <!-- /container -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    
-
-
-    
-  </div> <!-- /container -->
-  
-  <footer>
-    <p>Lakezon Copyright © 2015 - <a href="index.html#">Terms</a> · <a href="index.html#">Privacy</a></p>
-  </footer>  
+ 
 
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.bxslider.min.js"></script>
 
+<script type="text/javascript">
 
+
+$(function() {
+
+    $('#login-form-link').click(function(e) {
+    $("#login-form").delay(100).fadeIn(100);
+    $("#register-form").fadeOut(100);
+    $('#register-form-link').removeClass('active');
+    $(this).addClass('active');
+    e.preventDefault();
+  });
+  $('#register-form-link').click(function(e) {
+    $("#register-form").delay(100).fadeIn(100);
+    $("#login-form").fadeOut(100);
+    $('#login-form-link').removeClass('active');
+    $(this).addClass('active');
+    e.preventDefault();
+  });
+
+});
+
+
+</script>
 
 </body></html>
