@@ -41,8 +41,8 @@ customer.password = "4588";
 
 }*/
 
-function customerLogin(loginUrl, login , callback) {
-    postJSON({
+function customerLogin() {
+    $.ajax({
     headers: { 
         'Accept': 'application/json',
         'Content-Type': 'application/json' 
@@ -51,7 +51,8 @@ function customerLogin(loginUrl, login , callback) {
     'url': loginUrl,
     'data': JSON.stringify(login),
     'dataType': 'json',
-    'success': callback
+    'success': function(data){
+		alert(data);}
     });
 
 }
