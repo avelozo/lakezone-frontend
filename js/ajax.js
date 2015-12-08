@@ -1,6 +1,8 @@
 var serverUrl = "http://localhost:8090/";
-var customerLoginUrl = serverUrl+ "customer/authentication";
-
+var loginUrl = serverUrl+ "customer/authentication";
+var login = new Object();
+login.name = "joseph";
+login.password = "4588";
 
 
 function searchProduct(){
@@ -12,16 +14,47 @@ function searchProduct(){
   });
 }
 
-function customerLogin(){
-	var test = {"name": "joseph", "password":"4588"};	
-	postJSON(test, customerLoginUrl, function(data){
+/*function customerLogin(){
+var customer = new Object();
+customer.name = "joseph";
+customer.password = "4588";
+/*	postJSON(test,  function(data){
 		alert(data);
   		// setLocalStorage("productList",data);
   		// window.location="productList.html";
   });
+
+	$.postJSON = function(customerLoginUrl, customer, callback) {
+    return jQuery.ajax({
+    headers: { 
+        'Accept': 'application/json',
+        'Content-Type': 'application/json' 
+    },
+    'type': 'POST',
+    'url': customerLoginUrl,
+    'data': JSON.stringify(customer),
+    'dataType': 'json',
+    'success': alert(customer)
+    });
+};
+
+
+}*/
+
+function customerLogin(loginUrl, login , callback) {
+    postJSON({
+    headers: { 
+        'Accept': 'application/json',
+        'Content-Type': 'application/json' 
+    },
+    'type': 'POST',
+    'url': loginUrl,
+    'data': JSON.stringify(login),
+    'dataType': 'json',
+    'success': callback
+    });
+
 }
-
-
           
 
 
