@@ -67,8 +67,7 @@ function partnerLogin() {
 	var login = new Object();
 	login.name = $("#partnerName").val();
 	login.password = $("#partnerPassword").val();
-	// login.name = "DynkSA";
-	// login.password = "7896";
+	console.log(login);
 	var loginUrl = serverUrl+ "productowner/authentication";
     $.ajax({
     headers: { 
@@ -94,6 +93,33 @@ function setPartnerLocal(data){
 }
 
     
+
+function partnerRegistration(){
+
+	var login = new Object();
+	login.name = $("#partnerNameReg").val();
+	login.password = $("#partnerPasswordReg").val();
+	var loginUrl = serverUrl+ "productowner";
+    $.ajax({
+    headers: { 
+        'Accept': 'application/json',
+        'Content-Type': 'application/json' 
+    },
+    'type': 'POST',
+    'url': loginUrl,
+    'data': JSON.stringify(login),
+    'success': function(data){
+    	// alert(JSON.stringify(data));
+		setPartnerLocal(data);
+		window.location = "partnerHome.html";},
+	'error':   function(jqXHR, textStatus, errorThrown) {
+        alert("Error, status = " + textStatus + ", " +
+              "error thrown: " + errorThrown
+        );}
+    });	
+}
+
+
 
 
 function getProductDetail(link) {
