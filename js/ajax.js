@@ -78,7 +78,7 @@ function partnerLogin() {
     'url': loginUrl,
     'data': JSON.stringify(login),
     'success': function(data){
-    	alert(JSON.stringify(data));
+    	// alert(JSON.stringify(data));
 		setPartnerLocal(data);
 		window.location = "partnerHome.html";},
 	'error':   function(jqXHR, textStatus, errorThrown) {
