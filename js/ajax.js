@@ -112,12 +112,101 @@ function renderProductPage(){
 	$("#productDetails").html(total);
 }
 
+function renderCart(){
+	var total = "";
+	var totalValue = 0;
+	// test
+	var cartItems = getLocalStorage("productList");
+	total += "<div class='panel-heading'>";
+	total += "<div class='panel-title'>";
+	total += "<div class='row'>";
+	total += "<div class='col-xs-6'>";
+	total += "<h5><span class='glyphicon glyphicon-shopping-cart'></span> Shopping Cart</h5>";
+	total += "</div>";
+	total += "<div class='col-xs-6'>";
+	total += "<button type='button' class='btn btn-primary btn-sm btn-block'>";
+	total += "<span class='glyphicon glyphicon-share-alt'></span> Continue shopping";
+	total += "</button>";
+	total += "</div>";
+	total += "</div>";
+	total += "</div>";
+	total += "</div>";
+	total += "<div class='panel-body'>";
+
+	for(var i=0; i<cartItems.length; i++){
+
+		total += "<div class='row'>";
+		total += "<div class='col-xs-2'><img class='img-responsive' src="+cartItems[i].img+">";
+		total += "</div>";
+		total += "<div class='col-xs-4'>";
+		total += "<h4 class='product-name'><strong>"+cartItems[i].name+"</strong></h4><h4><small>"+cartItems[i].description+"</small></h4>";
+		total += "</div>";
+		total += "<div class='col-xs-6'>";
+		total += "<div class='col-xs-6 text-right'>";
+		total += "<h6><strong>"+cartItems[i].price+"<span class='text-muted'>x</span></strong></h6>";
+		total += "</div>";
+		total += "<div class='col-xs-4'>";
+		total += "<input type='text' class='form-control input-sm' value='1'>";
+		total += "</div>";
+		total += "<div class='col-xs-2'>";
+		total += "<button type='button' class='btn btn-link btn-xs'>";
+		total += "<span class='glyphicon glyphicon-trash'> </span>";
+		total += "</button>";
+		total += "</div>";
+		total += "</div>";
+		total += "</div>";
+		total += "<hr>";
+		totalValue += parseInt(cartItems[i].price);
+
+	}
+	total += "<div class='row'>";
+	total += "<div class='text-center'>";
+	total += "<div class='col-xs-9'>";
+	total += "<h6 class='text-right'>Added items?</h6>";
+	total += "</div>";
+	total += "<div class='col-xs-3'>";
+	total += "<button type='button' class='btn btn-default btn-sm btn-block'> Update cart</button>";
+	total += "</div>";
+	total += "</div>";
+	total += "</div>";
+	total += "</div>";
+	total += "<div class='panel-footer'>";
+	total += "<div class='row text-center'>";
+	total += "<div class='col-xs-9'>";
+	total += "<h4 class='text-right'>Total <strong>$"+totalValue+"</strong></h4>";
+	total += "</div>";
+	total += "<div class='col-xs-3'>";
+	total += "<button type='button' class='btn btn-success btn-block'>";
+	total += "Checkout";
+	total += "</button>";
+	total += "</div></div></div>";
+	total += "";
+	
+	$("#cartItems").html(total);
+}
+
+
+        
+        
+          
+            
+              
+            
+            
+             
+
+
+
+
 
 
 
 function getJSON(url, successCallback) {
 	$.ajax(
 	{
+		// headers: {
+  //   		"Authorization": "Basic " + btoa("USERNAME" + ":" + "PASSWORD")
+  // 		},
 		type: "GET",
 		url: url,
 		success:  function(data) { successCallback(data); },
