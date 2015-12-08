@@ -98,11 +98,24 @@ function setPartnerLocal(data){
 	}
 }
 function getPartnerProductList(){
-	var url = getLocalStorage("partnerUrlviewProducts")
+	var url = getLocalStorage("partnerUrlviewProducts");
+	console.log(url);
 	getJSON( url, function(data){
   		setLocalStorage("partnerProductList",data);
   	});
 }
+
+function getPartnerOrderList(){
+	var url = getLocalStorage("partnerUrlviewOrders");
+	console.log(url);
+	getJSON( url, function(data){
+		console.log(data);
+  		
+  		setLocalStorage("partnerOrderList",data);
+  	});
+	return getLocalStorage("partnerOrderList");
+}
+
 
     
 
@@ -132,8 +145,6 @@ function partnerRegistration(){
 }
 
 
-
-
 function getProductDetail(link) {
 	var aux = link;
 	var p;
@@ -149,7 +160,20 @@ function getProductDetail(link) {
   	});
 }
 
+function renderOrderList(){
+getPartnerOrderList();
+var total = "";
+	var orderList = getLocalStorage("partnerOrderList");
+	for(var i=0; i<orderList.length; i++){
+	
+		total = "<tr><td>" + order.status + "</td></tr>";
 
+
+	}
+
+
+
+}
 
 function renderProductList(){
 	var total = "";
