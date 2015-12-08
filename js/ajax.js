@@ -90,6 +90,18 @@ function partnerLogin() {
 }
 function setPartnerLocal(data){
 	setLocalStorage("partnerName",data.name);
+	var key = "";
+	for(var i=0; i<data.link.length; i++){
+		key += "partnerUrl" + data.link[i].action;
+		setLocalStorage(key,data.link[i].url);
+		key = "";
+	}
+}
+function getPartnerProductList(){
+	var url = getLocalStorage("partnerUrlviewProducts")
+	getJSON( url, function(data){
+  		setLocalStorage("partnerProductList",data);
+  	});
 }
 
     
