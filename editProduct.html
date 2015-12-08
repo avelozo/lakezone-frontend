@@ -93,7 +93,7 @@
           <input type="text" class="form-control" id="editProductPrice" placeholder="Price">
        </div>
          <div class="form-group">
-          <a  class="form-control btn btn-login" onClick="testt()">Save</a>
+          <a  class="form-control btn btn-login" onClick="updateProduct()">Save</a>
          </div>
         
     
@@ -122,6 +122,7 @@
     $("#editProductQuantity").val(editProduct.quantity);
     $("#editProductImage").val(editProduct.img);
     $("#editProductPrice").val(editProduct.price);
+    var prodOwner = editProduct.productOwnerName;
 
     function testt(){
       alert($("#editProductName").val());
@@ -139,31 +140,52 @@
 
 
       function updateProduct(){
+
+        var aux = getLocalStorage("editProduct");
+        aux = aux.link;
+        var updateUrl;
+        for(var i=0; i<aux.length; i++){
+          if(aux[i].action == "updateProduct"){
+          updateUrl = aux[i].url;
+          break;
+        }
+        } 
+
         var prodName = $("#editProductName").val();
         var prodDescription = $("#editProductDescription").val();
         var prodQuantity = $("#editProductQuantity").val();
         var prodImage = $("#editProductImage").val();
         var prodPrice = $("#editProductPrice").val();
 
-        var login = new Object();
-        login.name = $("#partnerName").val();
-        login.password = $("#partnerPassword").val();
+
+        var newProduct = new Object();
+        newProduct.name = prodName;
+        newProduct.description = prodDescription;
+        newProduct.quantity = prodQuantity;
+        newProduct.img = prodImage;
+        newProduct.price = prodPrice;
+        // newProduct.productOwner = prodOwner;
 
         
         $.ajax({
-          headers: { 
-            'Accept': 'application/json',
-            'Content-Type': 'application/json' 
-          },
-          'type': 'POST',
-          'url': loginUrl,
-          'data': JSON.stringify(login),
-          'success': function(data){},
-          'error':   function(jqXHR, textStatus, errorThrown) {
+        headers: { 
+          'Accept': 'application/json',
+          'Content-Type': 'application/json' 
+        },
+        'type': 'PUT',
+        'url': updateUrl,
+        'data': JSON.stringify(newProduct),
+        'success': function(data){
+            alert(JSON.stringify(data));
+            window.location = "partnerHome.html";},
+        'error':   function(jqXHR, textStatus, errorThrown) {
             alert("Error, status = " + textStatus + ", " +
               "error thrown: " + errorThrown
-              );}
-            });
+            );}
+          });
+
+
+
 
       }
       

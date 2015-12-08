@@ -140,6 +140,7 @@ function partnerLogin() {
 
 }
 function setPartnerLocal(data){
+	setLocalStorage("partnerAll",data);
 	setLocalStorage("partnerName",data.name);
 	var key = "";
 	for(var i=0; i<data.link.length; i++){

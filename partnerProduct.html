@@ -97,7 +97,7 @@
           <input type="text" class="form-control" id="createProductPrice" placeholder="Price">
        </div>
          <div class="form-group">
-          <a  class="form-control btn btn-login"  >Save</a>
+          <a  class="form-control btn btn-login" onClick="saveProduct()" >Save</a>
          </div>
         
     
@@ -137,7 +137,7 @@
         renderTable += "<td>"+partnerProductList[i].price+"</td>";
         renderTable += "<td>"+partnerProductList[i].quantity+"</td>";
         renderTable += "<td><p data-placement='top' data-toggle='tooltip' title='Edit'><button class='btn btn-primary btn-xs' data-title='Edit' data-toggle='modal' data-target='#edit' onClick='editProduct("+JSON.stringify(partnerProductList[i].link)+")'><span class='glyphicon glyphicon-pencil'></span></button></p></td>";
-        renderTable += "<td><p data-placement='top' data-toggle='tooltip' title='Delete'><button class='btn btn-primary btn-xs' data-title='Delete' data-toggle='modal' data-target='#delete' ><span class='glyphicon glyphicon-trash'></span></button></p></td>";
+        renderTable += "<td><p data-placement='top' data-toggle='tooltip' title='Delete'><button class='btn btn-primary btn-xs' data-title='Delete' data-toggle='modal' data-target='#delete' onClick='deleteProduct("+JSON.stringify(partnerProductList[i].link)+")' ><span class='glyphicon glyphicon-trash'></span></button></p></td>";
         renderTable += "</tr>";
 
       }
@@ -157,6 +157,73 @@
           window.location="editProduct.html";
         });
       }
+
+
+      function deleteProduct(link){
+        var aux = link;
+        var deleteUrl;
+        for(var i=0; i<aux.length; i++){
+          if(aux[i].action == "self"){
+          var deleteUrl = aux[i].url;
+          break;
+        }
+        }
+        $.ajax({
+        headers: { 
+          'Accept': 'application/json',
+          'Content-Type': 'application/json' 
+        },
+        'type': 'DELETE',
+        'url': deleteUrl,
+        'success': function(data){
+            // alert(JSON.stringify(data));
+            alert("Product deleted!!!");
+            window.location = "partnerHome.html";},
+        'error':   function(jqXHR, textStatus, errorThrown) {
+            alert("Error, status = " + textStatus + ", " +
+              "error thrown: " + errorThrown
+            );}
+          });         
+
+      }
+
+      function saveProduct(){
+        var prodName = $("#createProductName").val();
+        var prodDescription = $("#createProductDescription").val();
+        var prodQuantity = $("#createProductQuantity").val();
+        var prodImage = $("#createProductImage").val();
+        var prodPrice = $("#createProductPrice").val();
+
+        var newProduct = new Object();
+        newProduct.name = prodName;
+        newProduct.description = prodDescription;
+        newProduct.quantity = prodQuantity;
+        newProduct.img = prodImage;
+        newProduct.price = prodPrice;
+
+        var addUrl = getLocalStorage("partnerUrladdProduct");
+        $.ajax({
+        headers: { 
+          'Accept': 'application/json',
+          'Content-Type': 'application/json' 
+        },
+        'type': 'POST',
+        'url': addUrl,
+        'data': JSON.stringify(newProduct),
+        'success': function(data){
+            alert("Product Saved!");
+            window.location = "partnerHome.html";},
+        'error':   function(jqXHR, textStatus, errorThrown) {
+            alert("Error, status = " + textStatus + ", " +
+              "error thrown: " + errorThrown
+            );}
+          });
+
+        
+
+      }
+
+
 
           
               
