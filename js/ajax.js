@@ -2,6 +2,28 @@ var serverUrl = "http://localhost:8090/";
 
 
 
+function login(entry){
+
+	if(entry=="login"){
+	if($("#checkPartner").is(":checked")){
+		partnerLogin();
+	}else{
+
+		customerLogin();
+	}
+	}else{
+
+	 if($("#checkPartnerReg").is(":checked")){
+	 	partnerRegistration();
+	}else{
+		customerReg();		
+	}
+
+
+	}
+
+}
+
 
 function searchProduct(){
   var product = $("#productName").val();
@@ -41,8 +63,8 @@ customer.password = "4588";
 
 function customerLogin() {
 	var login = new Object();
-login.name = "joseph";
-login.password = "1234";
+login.name = $("#loginName").val();
+login.password = $("#loginPassword").val();
 	var loginUrl = serverUrl+ "customer/authentication";
     $.ajax({
     headers: { 
@@ -53,6 +75,35 @@ login.password = "1234";
     'url': loginUrl,
     'data': JSON.stringify(login),
     'success': function(data){
+		alert(JSON.stringify(data));
+		window.location = "index.html";},
+	'error':   function(jqXHR, textStatus, errorThrown) {
+        alert("Error, status = " + textStatus + ", " +
+              "error thrown: " + errorThrown
+        );}
+    });
+
+}
+
+
+
+function customerReg() {
+	
+	var login = new Object();
+	login.name = $("#NameReg").val();
+	login.password = $("#PasswordReg").val();
+
+	var loginUrl = serverUrl+ "customer";
+    $.ajax({
+    headers: { 
+        'Accept': 'application/json',
+        'Content-Type': 'application/json' 
+    },
+    'type': 'POST',
+    'url': loginUrl,
+    'data': JSON.stringify(login),
+    'success': function(data){
+    	window.location = "index.html";
 		alert(JSON.stringify(data));},
 	'error':   function(jqXHR, textStatus, errorThrown) {
         alert("Error, status = " + textStatus + ", " +
@@ -65,8 +116,8 @@ login.password = "1234";
 function partnerLogin() {
 	
 	var login = new Object();
-	login.name = $("#partnerName").val();
-	login.password = $("#partnerPassword").val();
+	login.name = $("#loginName").val();
+	login.password = $("#loginPassword").val();
 
 	var loginUrl = serverUrl+ "productowner/authentication";
     $.ajax({
@@ -122,8 +173,8 @@ function getPartnerOrderList(){
 function partnerRegistration(){
 
 	var login = new Object();
-	login.name = $("#partnerNameReg").val();
-	login.password = $("#partnerPasswordReg").val();
+	login.name = $("#NameReg").val();
+	login.password = $("#PasswordReg").val();
 	var loginUrl = serverUrl+ "productowner";
     $.ajax({
     headers: { 
@@ -143,6 +194,10 @@ function partnerRegistration(){
         );}
     });	
 }
+
+
+
+
 
 
 function getProductDetail(link) {
