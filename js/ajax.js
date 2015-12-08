@@ -18,8 +18,6 @@ function login(entry){
 	}else{
 		customerReg();		
 	}
-
-
 	}
 
 }
