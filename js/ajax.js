@@ -76,7 +76,7 @@ login.password = $("#loginPassword").val();
     'data': JSON.stringify(login),
     'success': function(data){
     	setCustomerLocal(data);
-		alert(JSON.stringify(data));
+		// alert(JSON.stringify(data));
 		window.location = "index.html";},
 	'error':   function(jqXHR, textStatus, errorThrown) {
         alert("Error, status = " + textStatus + ", " +
@@ -153,6 +153,14 @@ function setPartnerLocal(data){
 
 function setCustomerLocal(data){
 	setLocalStorage("customerAll",data);
+	setLocalStorage("customerName",data.name);
+	var key = "";
+	for(var i=0; i<data.link.length; i++){
+		key += "customerUrl" + data.link[i].action;
+		setLocalStorage(key,data.link[i].url);
+		key = "";
+	}
+
 }
 function getPartnerProductList(){
 	var url = getLocalStorage("partnerUrlviewProducts");
@@ -204,11 +212,53 @@ function partnerRegistration(){
 }
 
 
+function addToCart(){
+
+	var orderDetail = new Object();
+	orderDetail.productId = getLocalStorage("actualProductId");
+	orderDetail.quantity = 1;
+	var cartUrl = getLocalStorage("customerUrladdProductToCart");
+    $.ajax({
+    headers: { 
+        'Accept': 'application/json',
+        'Content-Type': 'application/json' 
+    },
+    'type': 'POST',
+    'url': cartUrl,
+    'data': JSON.stringify(orderDetail),
+    'success': function(data){
+    	alert("Added to Cart!!!");
+		window.location = "index.html";},
+	'error':   function(jqXHR, textStatus, errorThrown) {
+        alert("Error, status = " + textStatus + ", " +
+              "error thrown: " + errorThrown
+        );}
+    });	
+}
+
+
+function getCart() {
+	var url = getLocalStorage("customerUrlviewCart");
+	getJSON( url, function(data){
+		var aux = data.link;
+		var p;
+		for(var i=0; i<aux.length; i++){
+			if(aux[i].action == "viewOrderDetails"){
+				p = aux[i].url;
+  				break;
+			}
+		}
+		getJSON( p, function(data){
+  			setLocalStorage("cartProducts",data);
+  			renderCart();
+  	});
+  	});
+}
 
 
 
 
-function getProductDetail(link) {
+function getProductDetail(link,prodId) {
 	var aux = link;
 	var p;
 	for(var i=0; i<aux.length; i++){
@@ -219,6 +269,7 @@ function getProductDetail(link) {
 	}
 	getJSON( p, function(data){
   		setLocalStorage("product",data);
+  		setLocalStorage("actualProductId",prodId);
   		window.location="product.html";
   	});
 }
@@ -336,7 +387,7 @@ function renderProductList(){
 		total += "</div>";
 		total += "<div class='col-xs-12 col-md-6'>";
 		// total += "<a class='btn btn-success' href='#'  onClick = "+ getProductDetail(productList[i].link)+">Details</a>";
-		total += "<a class='btn btn-success'  onClick = getProductDetail("+JSON.stringify(productList[i].link)+") name="+JSON.stringify(productList[i].link)+" value="+JSON.stringify(productList[i].link)+">Details</a>";
+		total += "<a class='btn btn-success'  onClick = getProductDetail("+JSON.stringify(productList[i].link)+","+productList[i].id+") name="+JSON.stringify(productList[i].link)+" value="+JSON.stringify(productList[i].link)+">Details</a>";
 		total += "</div></div></div></div></div>";
 
 	}
@@ -366,7 +417,7 @@ function renderProductPage(){
 	total += "<option value='5'>5</option>";
 	total += "</select>";
 	total += "</p>";
-	total += "<a href='#' class='btn btn-success'>Add to Cart</a>";
+	total += "<a onClick='addToCart()' class='btn btn-success'>Add to Cart</a>";
 	total += "<br/><br/><br/>";
 	total += "<div class='panel-group' id='accordion' role='tablist' aria-multiselectable='true'>";
 	total += "<div class='panel panel-default'>";
@@ -405,7 +456,7 @@ function renderCart(){
 	var total = "";
 	var totalValue = 0;
 	// test
-	var cartItems = getLocalStorage("productList");
+	var cartItems = getLocalStorage("cartProducts");
 	total += "<div class='panel-heading'>";
 	total += "<div class='panel-title'>";
 	total += "<div class='row'>";
