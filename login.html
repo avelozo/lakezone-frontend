@@ -140,6 +140,11 @@ $(function() {
 });
 
 
+var url = serverUrl + "product";
+  getJSON( url, function(data){
+    setLocalStorage("productList",data);
+  });
+
 </script>
 
 </body></html>
