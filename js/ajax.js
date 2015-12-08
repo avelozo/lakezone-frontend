@@ -222,10 +222,10 @@ var total = "";
 	var orderList = getLocalStorage("partnerOrderList");
 	for(var i=0; i<orderList.length; i++){
 	
-		total = "<tr><td>" + order.status + "</td></tr>";
-
+		total = "<tr><td>" + orderList[i].status + "</td></tr>";
 
 	}
+	$("#orderList").html(total);
 
 
 

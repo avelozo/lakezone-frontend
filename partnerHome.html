@@ -67,24 +67,7 @@
 
 
 
-<div class="panel panel-default">
-  <!-- Default panel contents -->
-  <div class="panel-heading">Orders</div>
-
-  <!-- Table -->
-  <table class="table">
-       <thead>
-              <th>Status</th>
-              <th>Order</th>
-              <th>Billing</th>
-              <th>Shipping</th>
-              <th>Contact</th>
-              <th>Edit</th>
-       </thead>
-
-       <span class="orderTable"></span>
-  </table>
-</div>
+<div class="panel panel-default" id = "partnerOrderList"></div>
 
     
   </div> <!-- /container -->
@@ -103,16 +86,31 @@
       // });
       var renderName = "<h1><span class='primary'>"+getLocalStorage("partnerName")+"</span></h1>";
       $("#partnerNameRender").html(renderName);
+      var partnerOrderList = getLocalStorage("partnerOrderList");
+      var renderTable = "";
+      renderTable += "<div class='panel-heading'>Products</div>";
+      renderTable += "<table class='table'>";
+      renderTable += "<thead>";
+      renderTable += "<th>Status</th>";
+      renderTable += "<th>OrderDate</th>";
+      renderTable += "</thead>";
+      for(var i=0; i<partnerOrderList.length; i++){
+        renderTable += "<tr>";
+        renderTable += "<td>"+partnerOrderList[i].status+"</td>";
+        renderTable += "<td>"+partnerOrderList[i].orderDate+"</td>";
+        renderTable += "</tr>";
+
+      }
+      renderTable += "</table>";
 
 
 
 
 
+      $("#partnerOrderList").html(renderTable);
 
-
-
-      getPartnerProductList();
-      renderOrderList();
+      // getPartnerProductList();
+      // renderOrderList();
     </script>
     
 
