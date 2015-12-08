@@ -50,13 +50,18 @@ function customerLogin() {
     'type': 'POST',
     'url': loginUrl,
     'data': JSON.stringify(login),
-    'dataType': 'json',
+    // 'dataType': 'json',
     'success': function(data){
-		alert(data);}
+		alert("sucesssss");},
+	'error':   function(jqXHR, textStatus, errorThrown) {
+        alert("Error, status = " + textStatus + ", " +
+              "error thrown: " + errorThrown
+        );}
     });
 
 }
-          
+
+    
 
 
 function getProductDetail(link) {
