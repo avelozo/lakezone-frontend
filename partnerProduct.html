@@ -12,6 +12,7 @@
 
     <!-- Custom styles for this template (imports bootstrap from LESS) -->
     <link href="css/style.css" rel="stylesheet">
+    <script src="js/ajax.js"></script>
   </head>
 
   <body>
@@ -64,30 +65,9 @@
 
 
 
-<div class="panel panel-default">
+<div class="panel panel-default" id = "partnerProductList">
   <!-- Default panel contents -->
-  <div class="panel-heading">Products</div>
 
-  <!-- Table -->
-  <table class="table">
-       <thead>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Edit</th>
-              <th>Delete</th>
-       </thead>
-
-       <tr>
-            <td>Samsung blabla</td>
-            <td>99.80</td>
-            <td>35</td>
-    
-            <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-            
-             <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-primary btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-             </tr>
-  </table>
 
 </div>
 
@@ -134,6 +114,47 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.bxslider.min.js"></script>
+
+    <script>
+      var partnerProductList = getLocalStorage("partnerProductList");
+      var renderTable = "";
+      renderTable += "<div class='panel-heading'>Products</div>";
+      renderTable += "<table class='table'>";
+      renderTable += "<thead>";
+      renderTable += "<th>Name</th>";
+      renderTable += "<th>Price</th>";
+      renderTable += "<th>Quantity</th>";
+      renderTable += "<th>Edit</th>";
+      renderTable += "<th>Delete</th>";
+      renderTable += "</thead>";
+      for(var i=0; i<partnerProductList.length; i++){
+        renderTable += "<tr>";
+        renderTable += "<td>"+partnerProductList[i].name+"</td>";
+        renderTable += "<td>"+partnerProductList[i].price+"</td>";
+        renderTable += "<td>N</td>";
+        renderTable += "<td><p data-placement='top' data-toggle='tooltip' title='Edit'><button class='btn btn-primary btn-xs' data-title='Edit' data-toggle='modal' data-target='#edit' ><span class='glyphicon glyphicon-pencil'></span></button></p></td>";
+        renderTable += "<td><p data-placement='top' data-toggle='tooltip' title='Delete'><button class='btn btn-primary btn-xs' data-title='Delete' data-toggle='modal' data-target='#delete' ><span class='glyphicon glyphicon-trash'></span></button></p></td>";
+        renderTable += "</tr>";
+
+      }
+      renderTable += "</table>";
+
+          
+              
+       
+            
+            
+             
+             
+  
+
+      var renderName = "<h1><span class='primary'>"+getLocalStorage("partnerName")+"</span></h1>";
+      $("#partnerNameRender").html(renderName);
+      $("#partnerProductList").html(renderTable);
+      
+      
+      
+    </script>
 
 
 
