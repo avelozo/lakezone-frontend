@@ -216,18 +216,36 @@ function getProductDetail(link) {
   	});
 }
 
+
+
+    
+
+
+
+
+
 function renderOrderList(){
 getPartnerOrderList();
-var total = "";
-	var orderList = getLocalStorage("partnerOrderList");
-	for(var i=0; i<orderList.length; i++){
-	
-		total = "<tr><td>" + orderList[i].status + "</td></tr>";
+var renderName = "<h1><span class='primary'>"+getLocalStorage("partnerName")+"</span></h1>";
+      $("#partnerNameRender").html(renderName);
+      var partnerOrderList = getLocalStorage("partnerOrderList");
+      var renderTable = "";
+      renderTable += "<div class='panel-heading'>Products</div>";
+      renderTable += "<table class='table'>";
+      renderTable += "<thead>";
+      renderTable += "<th>Status</th>";
+      renderTable += "<th>OrderDate</th>";
+      renderTable += "</thead>";
+      for(var i=0; i<partnerOrderList.length; i++){
+        renderTable += "<tr>";
+        renderTable += "<td>"+partnerOrderList[i].status+"</td>";
+        renderTable += "<td>"+partnerOrderList[i].orderDate+"</td>";
+        renderTable += "</tr>";
 
-	}
-	$("#orderList").html(total);
+      }
+      renderTable += "</table>";
 
-
+      $("#partnerOrderList").html(renderTable);
 
 }
 
