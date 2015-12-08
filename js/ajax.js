@@ -159,6 +159,7 @@ function getPartnerProductList(){
 	console.log(url);
 	getJSON( url, function(data){
   		setLocalStorage("partnerProductList",data);
+  		renderPartnerProductList();
   	});
 }
 
@@ -223,6 +224,35 @@ function getProductDetail(link) {
 }
 
 
+function shipOrder(link) {
+	var aux = link;
+	var updateUrl;
+
+    var newOrder = new Object();
+    newOrder.status = "SHIPPED";
+	for(var i=0; i<aux.length; i++){
+		if(aux[i].action == "shipOrder"){
+			updateUrl = aux[i].url;
+  			break;
+		}
+	}
+        $.ajax({
+        headers: { 
+          'Accept': 'application/json',
+          'Content-Type': 'application/json' 
+        },
+        'type': 'PUT',
+        'url': updateUrl,
+        'data': JSON.stringify(newOrder),
+        'success': function(data){
+            alert("Shipped!");
+            window.location = "partnerHome.html";},
+        'error':   function(jqXHR, textStatus, errorThrown) {
+            alert("Error, status = " + textStatus + ", " +
+              "error thrown: " + errorThrown
+            );}
+          });
+}
 
     
 
@@ -241,11 +271,13 @@ var renderName = "<h1><span class='primary'>"+getLocalStorage("partnerName")+"</
       renderTable += "<thead>";
       renderTable += "<th>Status</th>";
       renderTable += "<th>OrderDate</th>";
+      renderTable += "<th>Ship</th>";
       renderTable += "</thead>";
       for(var i=0; i<partnerOrderList.length; i++){
         renderTable += "<tr>";
         renderTable += "<td>"+partnerOrderList[i].status+"</td>";
         renderTable += "<td>"+partnerOrderList[i].orderDate+"</td>";
+        renderTable += "<td><p data-placement='top' data-toggle='tooltip' title='Edit'><button class='btn btn-primary btn-xs' data-title='Edit' data-toggle='modal' data-target='#edit' onClick='shipOrder("+JSON.stringify(partnerOrderList[i].link)+")'><span class='glyphicon glyphicon-pencil'></span></button></p></td>";
         renderTable += "</tr>";
 
       }
@@ -253,6 +285,39 @@ var renderName = "<h1><span class='primary'>"+getLocalStorage("partnerName")+"</
 
       $("#partnerOrderList").html(renderTable);
 
+}
+
+function renderPartnerProductList(){
+
+      var partnerProductList = getLocalStorage("partnerProductList");
+      var renderTable = "";
+      renderTable += "<div class='panel-heading'>Products</div>";
+      renderTable += "<table class='table'>";
+      renderTable += "<thead>";
+      renderTable += "<th>Name</th>";
+      renderTable += "<th>Price</th>";
+      renderTable += "<th>Quantity</th>";
+      renderTable += "<th>Edit</th>";
+      renderTable += "<th>Delete</th>";
+      renderTable += "</thead>";
+      for(var i=0; i<partnerProductList.length; i++){
+        renderTable += "<tr>";
+        renderTable += "<td>"+partnerProductList[i].name+"</td>";
+        renderTable += "<td>"+partnerProductList[i].price+"</td>";
+        renderTable += "<td>"+partnerProductList[i].quantity+"</td>";
+        renderTable += "<td><p data-placement='top' data-toggle='tooltip' title='Edit'><button class='btn btn-primary btn-xs' data-title='Edit' data-toggle='modal' data-target='#edit' onClick='editProduct("+JSON.stringify(partnerProductList[i].link)+")'><span class='glyphicon glyphicon-pencil'></span></button></p></td>";
+        renderTable += "<td><p data-placement='top' data-toggle='tooltip' title='Delete'><button class='btn btn-primary btn-xs' data-title='Delete' data-toggle='modal' data-target='#delete' onClick='deleteProduct("+JSON.stringify(partnerProductList[i].link)+")' ><span class='glyphicon glyphicon-trash'></span></button></p></td>";
+        renderTable += "</tr>";
+
+      }
+      renderTable += "</table>";
+
+
+
+
+
+
+	$("#partnerProductList").html(renderTable);
 }
 
 function renderProductList(){
