@@ -1,4 +1,6 @@
 var serverUrl = "http://localhost:8090/";
+var customerLoginUrl = serverUrl+ "customer/authentication";
+
 
 
 function searchProduct(){
@@ -7,6 +9,15 @@ function searchProduct(){
   getJSON( url, function(data){
   	setLocalStorage("productList",data);
   	window.location="productList.html";
+  });
+}
+
+function customerLogin(){
+	var test = {"name": "joseph", "password":"4588"};	
+	postJSON(test, customerLoginUrl, function(data){
+		alert(data);
+  		// setLocalStorage("productList",data);
+  		// window.location="productList.html";
   });
 }
 
@@ -215,6 +226,24 @@ function getJSON(url, successCallback) {
 	}
 	);
 }
+
+
+function postJSON(json, url, successCallback) {
+	$.ajax(
+	{
+		type: "POST",
+		url: url,
+		data: json,
+		success:  function(data) {
+			
+			successCallback(data);
+		},
+		contentType: "application/json",
+		dataType: "json"
+	}
+	);
+}
+
 
 
 function setLocalStorage(key,object) {
