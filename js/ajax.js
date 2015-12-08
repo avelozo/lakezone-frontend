@@ -67,7 +67,7 @@ function partnerLogin() {
 	var login = new Object();
 	login.name = $("#partnerName").val();
 	login.password = $("#partnerPassword").val();
-	console.log(login);
+
 	var loginUrl = serverUrl+ "productowner/authentication";
     $.ajax({
     headers: { 
