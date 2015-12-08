@@ -78,22 +78,26 @@
           </div>
       <div class="form-group">
         <label>Name</label>
-        <input type="text" class="form-control" placeholder="Name">
+        <input type="text" id="createProductName" class="form-control" placeholder="Name">
       </div>
         <div class="form-group">
         <label for="description">Description</label>
-         <textarea class="form-control" rows="5" id="description"></textarea>
+         <textarea class="form-control" id="createProductDescription" rows="5" id="description"></textarea>
        </div>
          <div class="form-group">
          <label>Quantity</label>
-          <input type="text" class="form-control" placeholder="Quantity">
+          <input type="text" class="form-control" id="createProductQuantity" placeholder="Quantity">
+       </div>
+        <div class="form-group">
+         <label>Image url</label>
+          <input type="text" class="form-control" id="createProductImage" placeholder="Image">
        </div>
        <div class="form-group">
           <label>Price</label>
-          <input type="text" class="form-control" placeholder="Price">
+          <input type="text" class="form-control" id="createProductPrice" placeholder="Price">
        </div>
          <div class="form-group">
-       <input type="submit" value="Save" class="btn btn-primary pull-right">
+          <a  class="form-control btn btn-login"  >Save</a>
          </div>
         
     
@@ -131,7 +135,7 @@
         renderTable += "<tr>";
         renderTable += "<td>"+partnerProductList[i].name+"</td>";
         renderTable += "<td>"+partnerProductList[i].price+"</td>";
-        renderTable += "<td>N</td>";
+        renderTable += "<td>"+partnerProductList[i].quantity+"</td>";
         renderTable += "<td><p data-placement='top' data-toggle='tooltip' title='Edit'><button class='btn btn-primary btn-xs' data-title='Edit' data-toggle='modal' data-target='#edit' ><span class='glyphicon glyphicon-pencil'></span></button></p></td>";
         renderTable += "<td><p data-placement='top' data-toggle='tooltip' title='Delete'><button class='btn btn-primary btn-xs' data-title='Delete' data-toggle='modal' data-target='#delete' ><span class='glyphicon glyphicon-trash'></span></button></p></td>";
         renderTable += "</tr>";

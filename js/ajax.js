@@ -42,7 +42,7 @@ customer.password = "4588";
 function customerLogin() {
 	var login = new Object();
 login.name = "joseph";
-login.password = "4588";
+login.password = "1234";
 	var loginUrl = serverUrl+ "customer/authentication";
     $.ajax({
     headers: { 
@@ -53,7 +53,7 @@ login.password = "4588";
     'url': loginUrl,
     'data': JSON.stringify(login),
     'success': function(data){
-		alert(data);},
+		alert(JSON.stringify(data));},
 	'error':   function(jqXHR, textStatus, errorThrown) {
         alert("Error, status = " + textStatus + ", " +
               "error thrown: " + errorThrown
@@ -78,7 +78,7 @@ function partnerLogin() {
     'url': loginUrl,
     'data': JSON.stringify(login),
     'success': function(data){
-    	// alert(JSON.stringify(data));
+    	alert(JSON.stringify(data));
 		setPartnerLocal(data);
 		window.location = "partnerHome.html";},
 	'error':   function(jqXHR, textStatus, errorThrown) {
@@ -338,6 +338,8 @@ function getJSON(url, successCallback) {
 
 
 function postJSON(json, url, successCallback) {
+
+
 	$.ajax(
 	{
 		type: "POST",
