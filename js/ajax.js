@@ -169,6 +169,7 @@ function getPartnerOrderList(){
 		console.log(data);
   		
   		setLocalStorage("partnerOrderList",data);
+  		renderOrderList();
   	});
 	return getLocalStorage("partnerOrderList");
 }
@@ -230,7 +231,7 @@ function getProductDetail(link) {
 
 
 function renderOrderList(){
-getPartnerOrderList();
+
 var renderName = "<h1><span class='primary'>"+getLocalStorage("partnerName")+"</span></h1>";
       $("#partnerNameRender").html(renderName);
       var partnerOrderList = getLocalStorage("partnerOrderList");
