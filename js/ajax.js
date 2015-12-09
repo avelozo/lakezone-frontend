@@ -181,6 +181,18 @@ function getPartnerOrderList(){
 	return getLocalStorage("partnerOrderList");
 }
 
+function getCustomerOrderList(){
+	var url = getLocalStorage("customerUrlviewOrders");
+	console.log(url);
+	getJSON( url, function(data){
+		console.log(data);
+  		
+  		setLocalStorage("customerOrderList",data);
+  		renderCustomerOrderList();
+  	});
+	return getLocalStorage("partnerOrderList");
+}
+
 
     
 
@@ -303,8 +315,58 @@ function shipOrder(link) {
           });
 }
 
-    
+function cancelOrder(link) {
+	var aux = link;
+	var updateUrl;
 
+    var newOrder = new Object();
+    newOrder.status = "CANCELED";
+	for(var i=0; i<aux.length; i++){
+		if(aux[i].action == "self"){
+			updateUrl = aux[i].url;
+  			break;
+		}
+	}
+        $.ajax({
+        headers: { 
+          'Accept': 'application/json',
+          'Content-Type': 'application/json' 
+        },
+        'type': 'PUT',
+        'url': updateUrl,
+        'data': JSON.stringify(newOrder),
+        'success': function(data){
+            alert("Cancelled!");
+            window.location = "index.html";},
+        'error':   function(jqXHR, textStatus, errorThrown) {
+            alert("Error, status = " + textStatus + ", " +
+              "error thrown: " + errorThrown
+            );}
+          });
+}
+
+    
+      function clearCart(){
+        var deleteUrl = getLocalStorage("customerUrlviewCart");
+        $.ajax({
+        headers: { 
+          'Accept': 'application/json',
+          'Content-Type': 'application/json' 
+        },
+        'type': 'DELETE',
+        'url': deleteUrl,
+        'success': function(data){
+            // alert(JSON.stringify(data));
+            localStorage.cartProducts = "";
+            alert("Cart deleted!!!");
+            window.location = "index.html";},
+        'error':   function(jqXHR, textStatus, errorThrown) {
+            alert("Error, status = " + textStatus + ", " +
+              "error thrown: " + errorThrown
+            );}
+          });         
+
+      }
 
 
 
@@ -333,6 +395,31 @@ var renderName = "<h1><span class='primary'>"+getLocalStorage("partnerName")+"</
       renderTable += "</table>";
 
       $("#partnerOrderList").html(renderTable);
+
+}
+
+function renderCustomerOrderList(){
+
+      var customerOrderList = getLocalStorage("customerOrderList");
+      var renderTable = "";
+      renderTable += "<div class='panel-heading'>Products</div>";
+      renderTable += "<table class='table'>";
+      renderTable += "<thead>";
+      renderTable += "<th>Status</th>";
+      renderTable += "<th>OrderDate</th>";
+      renderTable += "<th>Cancel</th>";
+      renderTable += "</thead>";
+      for(var i=0; i<customerOrderList.length; i++){
+        renderTable += "<tr>";
+        renderTable += "<td>"+customerOrderList[i].status+"</td>";
+        renderTable += "<td>"+customerOrderList[i].orderDate+"</td>";
+        renderTable += "<td><p data-placement='top' data-toggle='tooltip' title='Edit'><button class='btn btn-primary btn-xs' data-title='Edit' data-toggle='modal' data-target='#edit' onClick='cancelOrder("+JSON.stringify(customerOrderList[i].link)+")'><span class='glyphicon glyphicon-pencil'></span></button></p></td>";
+        renderTable += "</tr>";
+
+      }
+      renderTable += "</table>";
+
+      $("#customerOrderList").html(renderTable);
 
 }
 
@@ -407,7 +494,7 @@ function renderProductPage(){
 	total += "<hr/>";
 	total += "<p>";
 	total += "Quantity:";
-	total += "<select class='form-control'>";
+	total += "<select class='form-control' id='productQuantity'>";
 	total += "<option value='1'>1</option>";
 	total += "<option value='2'>2</option>";
 	total += "<option value='3'>3</option>";
@@ -448,6 +535,7 @@ function renderProductPage(){
 
 	
 	$("#productDetails").html(total);
+	// alert($("#productQuantity").val())
 }
 
 function renderCart(){
@@ -503,7 +591,7 @@ function renderCart(){
 	total += "<h6 class='text-right'>Added items?</h6>";
 	total += "</div>";
 	total += "<div class='col-xs-3'>";
-	total += "<button type='button' class='btn btn-default btn-sm btn-block'> Update cart</button>";
+	total += "<a class='btn btn-default btn-sm btn-block' onClick='clearCart()'> Clear Cart</a>";
 	total += "</div>";
 	total += "</div>";
 	total += "</div>";
@@ -514,9 +602,9 @@ function renderCart(){
 	total += "<h4 class='text-right'>Total <strong>$"+totalValue+"</strong></h4>";
 	total += "</div>";
 	total += "<div class='col-xs-3'>";
-	total += "<button type='button' class='btn btn-success btn-block'>";
+	total += "<a href = 'payment.html' class='btn btn-success btn-block'>";
 	total += "Checkout";
-	total += "</button>";
+	total += "</a>";
 	total += "</div></div></div>";
 	total += "";
 	

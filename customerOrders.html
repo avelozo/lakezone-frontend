@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,9 +25,11 @@
 
     <header>
       <div class="row">
-	<div class="col-md-4 col-sm-12">
-	  <h1 class="logo"><img src="img/icon-fish.png">Lake<span class="primary">Zone</span></h1>
-	</div> <!-- col-md-4 -->
+  <div class="col-md-4 col-sm-12">
+    <h1 class="logo"><img src="img/icon-fish.png">Lake<span class="primary">Zone</span></h1>
+    
+  </div> <!-- col-md-4 -->
+
       </div> <!-- row -->
     </header>
 
@@ -47,38 +49,60 @@
             <li class="active"><a href="index.html">Home</a></li>
             
             
-            <li><a  onClick ="customerLogin()">My Account</a></li>
-            <li><a  href="cartPage.html">See Cart</a></li>
-            <li><a  href="customerOrders.html">See Orders</a></li>
+            <li><a href="">My Account</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-	    <form class="navbar-form">
-	      <div class="form-group">
-		<input type="text" id = "productName" class="form-control" placeholder="Search...">
-	      </div>
-	      <a class="btn btn-default" id="searchButton" onClick="searchProduct()">Search</a>
-	    </form>
+      <form class="navbar-form">
+        <div class="form-group">
+    <input type="text" class="form-control" placeholder="Search...">
+        </div>
+        <button type="submit" class="btn btn-default">Search</button>
+      </form>
           </ul>
         </div><!--/.nav-collapse -->
       </div><!--/.container-fluid -->
     </nav>
-    
-    <!-- Main component for a primary marketing message or call to action -->
-    <div class="jumbotron">
-	
-	
-	<ul class="bxslider">
-		  <li><img src="img/pic1.jpg" /></li>
-		  <li><img src="img/pic2.jpg" /></li>
-</ul>
-	
-    </div> <!-- jumbotron -->
 
-    <section id="products" class="">
-    <div class="row">
-	<div id="homeProducts"></div>
-      </div> <!-- row -->
-    </section>
+
+    <div class="panel panel-default" id = "customerOrderList"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+
+
     
   </div> <!-- /container -->
   
@@ -89,20 +113,12 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.bxslider.min.js"></script>
+    <script>
+      getCustomerOrderList();
+    </script>
+
+    
 
 
-    <!-- jQuery library (served from Google) -->
 
-<!-- bxSlider CSS file -->
-<link href="css/jquery.bxslider.css" rel="stylesheet" />
-  
-<script>
- 
-
-renderProductListHomePage();
-
-
-$(document).ready(function(){
-  $('.bxslider').bxSlider();
-});</script>
 </body></html>
