@@ -523,15 +523,15 @@ function renderProductPage(){
 	total += "</div>";
 	total += "</div>";
 	total += "</div>";
-	total += "<div class='col-md-4'>";
-	total += "<div class='list-group'>";
-	total += "<a href='#' class='list-group-item'>Category One</a>";
-	total += "<a href='#' class='list-group-item'>Category Two</a>";
-	total += "<a href='#' class='list-group-item'>Category Three</a>";
-	total += "<a href='#' class='list-group-item'>Category Four</a>";
-	total += "<a href='#' class='list-group-item'>Category Five</a>";
-	total += "</div>";
-	total += "</div>";
+	// total += "<div class='col-md-4'>";
+	// total += "<div class='list-group'>";
+	// total += "<a href='#' class='list-group-item'>Category One</a>";
+	// total += "<a href='#' class='list-group-item'>Category Two</a>";
+	// total += "<a href='#' class='list-group-item'>Category Three</a>";
+	// total += "<a href='#' class='list-group-item'>Category Four</a>";
+	// total += "<a href='#' class='list-group-item'>Category Five</a>";
+	// total += "</div>";
+	// total += "</div>";
 
 	
 	$("#productDetails").html(total);
