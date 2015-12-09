@@ -550,9 +550,9 @@ function renderCart(){
 	total += "<h5><span class='glyphicon glyphicon-shopping-cart'></span> Shopping Cart</h5>";
 	total += "</div>";
 	total += "<div class='col-xs-6'>";
-	total += "<button type='button' class='btn btn-primary btn-sm btn-block'>";
+	total += "<a href='index.html' class='btn btn-primary btn-sm btn-block'>";
 	total += "<span class='glyphicon glyphicon-share-alt'></span> Continue shopping";
-	total += "</button>";
+	total += "</a>";
 	total += "</div>";
 	total += "</div>";
 	total += "</div>";
@@ -587,12 +587,12 @@ function renderCart(){
 	}
 	total += "<div class='row'>";
 	total += "<div class='text-center'>";
-	total += "<div class='col-xs-9'>";
-	total += "<h6 class='text-right'>Added items?</h6>";
-	total += "</div>";
-	total += "<div class='col-xs-3'>";
-	total += "<a class='btn btn-default btn-sm btn-block' onClick='clearCart()'> Clear Cart</a>";
-	total += "</div>";
+	// total += "<div class='col-xs-9'>";
+	// total += "<h6 class='text-right'>Added items?</h6>";
+	// total += "</div>";
+	// total += "<div class='col-xs-3'>";
+	// total += "<a class='btn btn-default btn-sm btn-block' onClick='clearCart()'> Clear Cart</a>";
+	// total += "</div>";
 	total += "</div>";
 	total += "</div>";
 	total += "</div>";
